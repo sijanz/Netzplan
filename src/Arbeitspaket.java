@@ -17,6 +17,7 @@ class Arbeitspaket {
         this.d = d;
     }
 
+    // TODO change modifiers
     int getFaz() {
         return this.faz;
     }
