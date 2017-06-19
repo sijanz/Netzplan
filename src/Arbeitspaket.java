@@ -44,7 +44,7 @@ class Arbeitspaket {
     void setFaz(int faz) {
         this.faz = faz;
     }
-
+    
     void setSez(int sez) {
         this.sez = sez;
     }
