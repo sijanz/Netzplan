@@ -17,8 +17,7 @@ class Arbeitspaket {
         this.d = d;
     }
 
-    // TODO change modifiers
-    int getFaz() {
+    private int getFaz() {
         return this.faz;
     }
 
@@ -26,11 +25,11 @@ class Arbeitspaket {
         return this.fez;
     }
 
-    int getSaz() {
+    private int getSaz() {
         return this.saz;
     }
 
-    int getSez() {
+    private int getSez() {
         return this.sez;
     }
 
