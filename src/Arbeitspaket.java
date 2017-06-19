@@ -17,14 +17,6 @@ class Arbeitspaket {
         this.d = d;
     }
 
-    char getI() {
-        return this.i;
-    }
-
-    int getD() {
-        return this.d;
-    }
-
     int getFaz() {
         return this.faz;
     }
@@ -39,18 +31,6 @@ class Arbeitspaket {
 
     int getSez() {
         return this.sez;
-    }
-
-    int getGp() {
-        return this.gp;
-    }
-
-    int getFp() {
-        return this.fp;
-    }
-
-    int getUp() {
-        return this.up;
     }
 
     Arbeitspaket[] getVorgaenger() {
@@ -129,6 +109,18 @@ class Arbeitspaket {
                 }
             }
             up = min - max - d;
+        }
+    }
+
+    void calculateFp() {
+        if (nachfolger != null) {
+            int min = nachfolger[0].getFaz();
+            for (Arbeitspaket pointer : nachfolger) {
+                if (pointer.getFaz() < min) {
+                    min = pointer.getFaz();
+                }
+            }
+            fp = min - fez;
         }
     }
 

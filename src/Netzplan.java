@@ -46,6 +46,7 @@ public class Netzplan {
         // Pufferberechnung
         for (Arbeitspaket pointer : liste) {
             pointer.calculateGp();
+            pointer.calculateFp();
             pointer.calculateUp();
         }
 
