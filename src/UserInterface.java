@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class UserInterface {
+class UserInterface {
 
     void showMainMenu() {
         System.out.println("***Netzplan-Rechner***");
@@ -24,6 +24,7 @@ public class UserInterface {
             case 4:
                 break;
             case 5:
+                entferneNetzplan();
                 break;
             case 0:
                 closeProgram();
@@ -50,6 +51,26 @@ public class UserInterface {
                 break;
             default:
                 closeProgram();
+        }
+    }
+
+    private void entferneNetzplan() {
+        System.out.println("Wollen Sie den aktuellen Netzplan wirklich entfernen?");
+        System.out.println("1       Ja");
+        System.out.println("2       Nein");
+
+        Scanner scanner = new Scanner(System.in);
+        int selection = scanner.nextInt();
+        switch (selection) {
+            case 1:
+                Netzplan.liste.clear();
+                break;
+            case 2:
+                showMainMenu();
+                break;
+            default:
+                entferneNetzplan();
+                break;
         }
     }
 }

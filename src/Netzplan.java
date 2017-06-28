@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Netzplan {
 
-    public static boolean stop = false;
+    static boolean stop = false;
 
-    private static ArrayList<Arbeitspaket> liste = new ArrayList<>();
+    static ArrayList<Arbeitspaket> liste = new ArrayList<>();
 
 
     private static void forwardPass() {
