@@ -38,7 +38,7 @@ public class Netzplan {
         }
     }
 
-    private static void output() {
+    static void output() {
         System.out.println("Legende:");
         System.out.println("i FAZ FEZ");
         System.out.println("D SAZ SEZ");
@@ -48,6 +48,25 @@ public class Netzplan {
             pointer.printArbeitspaket();
             System.out.println();
         }
+    }
+
+    static void calculate() {
+        // Anfang Algorythmus
+
+        // Vorwaertsrechnung
+        forwardPass();
+
+        // End-SEZ auf End-FEZ setzen
+        setSezToFez();
+
+        // Rueckwaertsrechnung
+        backwardPass();
+
+        // Pufferberechnung
+        bufferCalculation();
+
+        // Output
+        output();
     }
 
     public static void main(String[] args) {
@@ -96,22 +115,5 @@ public class Netzplan {
         while (!stop) {
             ui.showMainMenu();
         }
-
-        // Anfang Algorythmus
-
-        // Vorwaertsrechnung
-        forwardPass();
-
-        // End-SEZ auf End-FEZ setzen
-        setSezToFez();
-
-        // Rueckwaertsrechnung
-        backwardPass();
-
-        // Pufferberechnung
-        bufferCalculation();
-
-        // Output
-        output();
     }
 }

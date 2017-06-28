@@ -22,6 +22,7 @@ class UserInterface {
             case 3:
                 break;
             case 4:
+                zeigeNetzplan();
                 break;
             case 5:
                 entferneNetzplan();
@@ -31,6 +32,31 @@ class UserInterface {
                 break;
             default:
                 showMainMenu();
+                break;
+        }
+    }
+
+    private void zeigeNetzplan() {
+        Netzplan.calculate();
+        showMainMenu();
+    }
+
+    private void entferneNetzplan() {
+        System.out.println("Wollen Sie den aktuellen Netzplan wirklich entfernen?");
+        System.out.println("1       Ja");
+        System.out.println("2       Nein");
+
+        Scanner scanner = new Scanner(System.in);
+        int selection = scanner.nextInt();
+        switch (selection) {
+            case 1:
+                Netzplan.liste.clear();
+                break;
+            case 2:
+                showMainMenu();
+                break;
+            default:
+                entferneNetzplan();
                 break;
         }
     }
@@ -54,23 +80,4 @@ class UserInterface {
         }
     }
 
-    private void entferneNetzplan() {
-        System.out.println("Wollen Sie den aktuellen Netzplan wirklich entfernen?");
-        System.out.println("1       Ja");
-        System.out.println("2       Nein");
-
-        Scanner scanner = new Scanner(System.in);
-        int selection = scanner.nextInt();
-        switch (selection) {
-            case 1:
-                Netzplan.liste.clear();
-                break;
-            case 2:
-                showMainMenu();
-                break;
-            default:
-                entferneNetzplan();
-                break;
-        }
-    }
 }
