@@ -11,6 +11,7 @@ class Arbeitspaket {
     private int up;
     private Arbeitspaket[] vorgaenger;
     private Arbeitspaket[] nachfolger;
+    private boolean isMarked;
 
     Arbeitspaket(char i, int d) {
         this.i = i;
@@ -41,10 +42,10 @@ class Arbeitspaket {
         return this.nachfolger;
     }
 
-    void setFaz(int faz) {
-        this.faz = faz;
+    boolean isMarked() {
+        return this.isMarked;
     }
-    
+
     void setSez(int sez) {
         this.sez = sez;
     }
@@ -55,6 +56,14 @@ class Arbeitspaket {
 
     void setNachfolger(Arbeitspaket[] nachfolger) {
         this.nachfolger = nachfolger;
+    }
+
+    void setMark() {
+        this.isMarked = true;
+    }
+
+    void removeMark() {
+        this.isMarked = false;
     }
 
     void calculateFaz() {

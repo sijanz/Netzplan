@@ -2,15 +2,10 @@ import java.util.ArrayList;
 
 public class Netzplan {
 
+    public static boolean stop = false;
+
     private static ArrayList<Arbeitspaket> liste = new ArrayList<>();
 
-    private static void initializeFaz() {
-        for (Arbeitspaket pointer : liste) {
-            if (pointer.getVorgaenger() == null) {
-                pointer.setFaz(0);
-            }
-        }
-    }
 
     private static void forwardPass() {
         for (Arbeitspaket pointer : liste) {
@@ -59,16 +54,36 @@ public class Netzplan {
 
         // TODO: implement another way to initialise and add objects
 
-        Arbeitspaket a = new Arbeitspaket('A', 2);
+//        Arbeitspaket a = new Arbeitspaket('A', 2);
+//        Arbeitspaket b = new Arbeitspaket('B', 4);
+//        Arbeitspaket c = new Arbeitspaket('C', 10);
+//        Arbeitspaket d = new Arbeitspaket('D', 3);
+//
+//        liste.add(a);
+//        liste.add(b);
+//        liste.add(c);
+//        liste.add(d);
+//
+//        a.setNachfolger(new Arbeitspaket[]{b, c});
+//        b.setVorgaenger(new Arbeitspaket[]{a});
+//        b.setNachfolger(new Arbeitspaket[]{d});
+//        c.setVorgaenger(new Arbeitspaket[]{a});
+//        c.setNachfolger(new Arbeitspaket[]{d});
+//        d.setVorgaenger(new Arbeitspaket[]{b, c});
+
+        // Arbeitspakete als Objekte initialisieren
+        Arbeitspaket a = new Arbeitspaket('A', 5);
         Arbeitspaket b = new Arbeitspaket('B', 4);
-        Arbeitspaket c = new Arbeitspaket('C', 10);
+        Arbeitspaket c = new Arbeitspaket('C', 7);
         Arbeitspaket d = new Arbeitspaket('D', 3);
 
+        // Arbeitspake zur Liste hinzufuegen
         liste.add(a);
         liste.add(b);
         liste.add(c);
         liste.add(d);
 
+        // Vorgaenger und Nachfolger der Arbeitspakete hinzufuegen (in Arrays "vorgaenger" und "nachfolger" schreiben)
         a.setNachfolger(new Arbeitspaket[]{b, c});
         b.setVorgaenger(new Arbeitspaket[]{a});
         b.setNachfolger(new Arbeitspaket[]{d});
@@ -76,8 +91,13 @@ public class Netzplan {
         c.setNachfolger(new Arbeitspaket[]{d});
         d.setVorgaenger(new Arbeitspaket[]{b, c});
 
-        // Startzeitpunkt auf 0 setzen
-        initializeFaz();
+        UserInterface ui = new UserInterface();
+
+        while (!stop) {
+            ui.showMainMenu();
+        }
+
+        // Anfang Algorythmus
 
         // Vorwaertsrechnung
         forwardPass();
