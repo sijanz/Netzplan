@@ -8,7 +8,7 @@ class UserInterface {
         System.out.println("1       Arbeitspaket hinzufuegen");
         System.out.println("2       Arbeitspaket bearbeiten");
         System.out.println("3       Arbeitspaket entfernen");
-        System.out.println("4       Netzplan anzeigen");
+        System.out.println("4       Netzplan berechnen und anzeigen");
         System.out.println("5       Netzplan entfernen");
         System.out.println("0       Programm beenden");
 
@@ -79,5 +79,4 @@ class UserInterface {
                 closeProgram();
         }
     }
-
 }

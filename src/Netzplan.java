@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Netzplan {
 
     static boolean stop = false;
-
     static ArrayList<Arbeitspaket> liste = new ArrayList<>();
 
 
@@ -51,22 +50,25 @@ public class Netzplan {
     }
 
     static void calculate() {
-        // Anfang Algorythmus
+        if (liste.isEmpty()) {
+            System.out.println("Keine Eintraege gefunden!");
+            System.out.println();
+        } else {
+            // Vorwaertsrechnung
+            forwardPass();
 
-        // Vorwaertsrechnung
-        forwardPass();
+            // End-SEZ auf End-FEZ setzen
+            setSezToFez();
 
-        // End-SEZ auf End-FEZ setzen
-        setSezToFez();
+            // Rueckwaertsrechnung
+            backwardPass();
 
-        // Rueckwaertsrechnung
-        backwardPass();
+            // Pufferberechnung
+            bufferCalculation();
 
-        // Pufferberechnung
-        bufferCalculation();
-
-        // Output
-        output();
+            // Output
+            output();
+        }
     }
 
     public static void main(String[] args) {
