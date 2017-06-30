@@ -63,15 +63,13 @@ class UserInterface {
             for (Arbeitspaket vor : pointer.getVorgaenger()) {
                 if (vor == paket) {
                     //TODO
-                    vor = null;
-                    break;
+                    pointer.getVorgaenger().remove(vor);
                 }
             }
             for (Arbeitspaket nach : pointer.getNachfolger()) {
                 if (nach == paket) {
                     //TODO
-                    nach = null;
-                    break;
+                    pointer.getNachfolger().remove(nach);
                 }
             }
         }
