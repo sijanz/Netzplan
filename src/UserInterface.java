@@ -44,8 +44,38 @@ class UserInterface {
         }
         System.out.print("Zu loeschendes Arbeitspaket: ");
         Scanner scanner = new Scanner(System.in);
+        boolean found = false;
         char selection = scanner.nextLine().charAt(0);
-        // TODO
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            if (selection == pointer.getI()) {
+                removeDependecies(pointer);
+                Netzplan.liste.remove(pointer);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.err.println("Arbeitspaket nicht gefunden!");
+        }
+    }
+
+    private void removeDependecies(Arbeitspaket paket) {
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            for (Arbeitspaket vor : pointer.getVorgaenger()) {
+                if (vor == paket) {
+                    //TODO
+                    vor = null;
+                    break;
+                }
+            }
+            for (Arbeitspaket nach : pointer.getNachfolger()) {
+                if (nach == paket) {
+                    //TODO
+                    nach = null;
+                    break;
+                }
+            }
+        }
     }
 
     private void zeigeNetzplan() {

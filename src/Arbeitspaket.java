@@ -9,6 +9,8 @@ class Arbeitspaket {
     private int gp;
     private int fp;
     private int up;
+
+    //TODO: change array to ArrayList
     private Arbeitspaket[] vorgaenger;
     private Arbeitspaket[] nachfolger;
     private boolean isMarked;
