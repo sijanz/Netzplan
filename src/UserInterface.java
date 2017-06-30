@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class UserInterface {
@@ -78,6 +79,7 @@ class UserInterface {
                 changeD(paket);
                 break;
             case 3:
+                addVorgaenger(paket);
                 break;
             case 4:
                 break;
@@ -110,6 +112,26 @@ class UserInterface {
         Scanner scanner = new Scanner(System.in);
         int newD = scanner.nextInt();
         paket.setD(newD);
+    }
+
+    private void addVorgaenger(Arbeitspaket paket) {
+        System.out.print("Bezeichner des Vorgaengers: ");
+
+        Scanner scanner = new Scanner(System.in);
+        char bez = scanner.nextLine().charAt(0);
+        boolean found = false;
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            if (pointer.getI() == bez) {
+                found = true;
+                if (paket.getVorgaenger() == null) {
+                    paket.setVorgaenger(new ArrayList<>());
+                }
+                paket.getVorgaenger().add(pointer);
+            }
+        }
+        if (!found) {
+            System.err.println("Kein Arbeitspaket mit diesem Bezeichner gefunden!");
+        }
     }
 
     private void entferneArbeitspaket() {
