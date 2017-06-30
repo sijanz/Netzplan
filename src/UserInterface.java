@@ -20,6 +20,7 @@ class UserInterface {
             case 2:
                 break;
             case 3:
+                entferneArbeitspaket();
                 break;
             case 4:
                 zeigeNetzplan();
@@ -34,6 +35,17 @@ class UserInterface {
                 showMainMenu();
                 break;
         }
+    }
+
+    private void entferneArbeitspaket() {
+        System.out.println("Verfuegbare Arbeitspakete:");
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            System.out.println(pointer.getI());
+        }
+        System.out.print("Zu loeschendes Arbeitspaket: ");
+        Scanner scanner = new Scanner(System.in);
+        char selection = scanner.nextLine().charAt(0);
+        // TODO
     }
 
     private void zeigeNetzplan() {

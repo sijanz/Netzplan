@@ -42,6 +42,10 @@ class Arbeitspaket {
         return this.nachfolger;
     }
 
+    char getI() {
+        return this.i;
+    }
+
     boolean isMarked() {
         return this.isMarked;
     }
