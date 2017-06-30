@@ -51,7 +51,6 @@ class UserInterface {
                 removeDependecies(pointer);
                 Netzplan.liste.remove(pointer);
                 found = true;
-                break;
             }
         }
         if (!found) {
