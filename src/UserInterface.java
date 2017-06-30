@@ -172,7 +172,7 @@ class UserInterface {
         for (Arbeitspaket pointer : Netzplan.liste) {
             if (pointer.getI() == selection) {
                 tmp = pointer;
-                removeDependecies(pointer);
+                removeDependencies(pointer);
                 found = true;
             }
         }
@@ -184,7 +184,7 @@ class UserInterface {
         }
     }
 
-    private void removeDependecies(Arbeitspaket paket) {
+    private void removeDependencies(Arbeitspaket paket) {
         for (Arbeitspaket pointer : Netzplan.liste) {
             if (pointer.getVorgaenger() != null) {
                 for (Arbeitspaket vor : pointer.getVorgaenger()) {
