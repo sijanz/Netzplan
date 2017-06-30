@@ -6,27 +6,32 @@ class UserInterface {
     void showMainMenu() {
         System.out.println("***Netzplan-Rechner***");
         System.out.println();
-        System.out.println("1       Arbeitspaket hinzufuegen");
-        System.out.println("2       Arbeitspaket bearbeiten");
-        System.out.println("3       Arbeitspaket entfernen");
-        System.out.println("4       Netzplan berechnen und anzeigen");
-        System.out.println("5       Netzplan entfernen");
+        System.out.println("1       Uebersicht Arbeitspakete");
+        System.out.println("2       Arbeitspaket hinzufuegen");
+        System.out.println("3       Arbeitspaket bearbeiten");
+        System.out.println("4       Arbeitspaket entfernen");
+        System.out.println("5       Netzplan berechnen und anzeigen");
+        System.out.println("6       Netzplan entfernen");
         System.out.println("0       Programm beenden");
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();
         switch (selection) {
             case 1:
+                showArbeitspakete();
                 break;
             case 2:
                 break;
             case 3:
-                entferneArbeitspaket();
+                bearbeiteArbeitspaket();
                 break;
             case 4:
-                zeigeNetzplan();
+                entferneArbeitspaket();
                 break;
             case 5:
+                zeigeNetzplan();
+                break;
+            case 6:
                 entferneNetzplan();
                 break;
             case 0:
@@ -35,6 +40,26 @@ class UserInterface {
             default:
                 showMainMenu();
                 break;
+        }
+    }
+
+    private void showArbeitspakete() {
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            System.out.printf("Arbeitspaket %s, Dauer: %d%n", pointer.getI(), pointer.getD());
+            if (pointer.getVorgaenger() != null) {
+                System.out.println(" Vorgaenger:");
+                for (Arbeitspaket vor : pointer.getVorgaenger()) {
+                    System.out.println("  " + vor.getI());
+                }
+                System.out.println();
+            }
+            if (pointer.getNachfolger() != null) {
+                System.out.println(" Nachfolger:");
+                for (Arbeitspaket nach : pointer.getNachfolger()) {
+                    System.out.println("  " + nach.getI());
+                }
+            }
+            System.out.println();
         }
     }
 
@@ -98,7 +123,7 @@ class UserInterface {
         System.out.println("Bisheriger Bezeichner: " + paket.getI());
         System.out.print("Neuer Bezeichner: ");
 
-        //TODO: exceptions
+        //TODO: exceptions, dependencies
         Scanner scanner = new Scanner(System.in);
         char newI = scanner.nextLine().charAt(0);
         paket.setI(newI);
