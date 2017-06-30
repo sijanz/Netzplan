@@ -73,25 +73,6 @@ public class Netzplan {
 
     public static void main(String[] args) {
 
-        // TODO: implement another way to initialise and add objects
-
-//        Arbeitspaket a = new Arbeitspaket('A', 2);
-//        Arbeitspaket b = new Arbeitspaket('B', 4);
-//        Arbeitspaket c = new Arbeitspaket('C', 10);
-//        Arbeitspaket d = new Arbeitspaket('D', 3);
-//
-//        liste.add(a);
-//        liste.add(b);
-//        liste.add(c);
-//        liste.add(d);
-//
-//        a.setNachfolger(new Arbeitspaket[]{b, c});
-//        b.setVorgaenger(new Arbeitspaket[]{a});
-//        b.setNachfolger(new Arbeitspaket[]{d});
-//        c.setVorgaenger(new Arbeitspaket[]{a});
-//        c.setNachfolger(new Arbeitspaket[]{d});
-//        d.setVorgaenger(new Arbeitspaket[]{b, c});
-
         // Arbeitspakete als Objekte initialisieren
         Arbeitspaket a = new Arbeitspaket('A', 5);
         Arbeitspaket b = new Arbeitspaket('B', 4);
@@ -104,13 +85,24 @@ public class Netzplan {
         liste.add(c);
         liste.add(d);
 
-        // Vorgaenger und Nachfolger der Arbeitspakete hinzufuegen (in Arrays "vorgaenger" und "nachfolger" schreiben)
-        a.setNachfolger(new Arbeitspaket[]{b, c});
-        b.setVorgaenger(new Arbeitspaket[]{a});
-        b.setNachfolger(new Arbeitspaket[]{d});
-        c.setVorgaenger(new Arbeitspaket[]{a});
-        c.setNachfolger(new Arbeitspaket[]{d});
-        d.setVorgaenger(new Arbeitspaket[]{b, c});
+        // Vorgaenger und Nachfolger der Arbeitspakete hinzufuegen (in ArrayLists "vorgaenger" und "nachfolger" schreiben)
+        a.setNachfolger(new ArrayList<>());
+        a.getNachfolger().add(b);
+        a.getNachfolger().add(c);
+
+        b.setVorgaenger(new ArrayList<>());
+        b.getVorgaenger().add(a);
+        b.setNachfolger(new ArrayList<>());
+        b.getNachfolger().add(d);
+
+        c.setVorgaenger(new ArrayList<>());
+        c.getVorgaenger().add(a);
+        c.setNachfolger(new ArrayList<>());
+        c.getNachfolger().add(d);
+
+        d.setVorgaenger(new ArrayList<>());
+        d.getVorgaenger().add(b);
+        d.getVorgaenger().add(c);
 
         UserInterface ui = new UserInterface();
 

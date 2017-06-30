@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 class Arbeitspaket {
 
     private char i;
@@ -9,10 +12,8 @@ class Arbeitspaket {
     private int gp;
     private int fp;
     private int up;
-
-    //TODO: change array to ArrayList
-    private Arbeitspaket[] vorgaenger;
-    private Arbeitspaket[] nachfolger;
+    private ArrayList<Arbeitspaket> vorgaenger;
+    private ArrayList<Arbeitspaket> nachfolger;
     private boolean isMarked;
 
     Arbeitspaket(char i, int d) {
@@ -36,11 +37,11 @@ class Arbeitspaket {
         return this.sez;
     }
 
-    Arbeitspaket[] getVorgaenger() {
+    ArrayList<Arbeitspaket> getVorgaenger() {
         return this.vorgaenger;
     }
 
-    Arbeitspaket[] getNachfolger() {
+    ArrayList<Arbeitspaket> getNachfolger() {
         return this.nachfolger;
     }
 
@@ -56,11 +57,11 @@ class Arbeitspaket {
         this.sez = sez;
     }
 
-    void setVorgaenger(Arbeitspaket[] vorgaenger) {
+    void setVorgaenger(ArrayList<Arbeitspaket> vorgaenger) {
         this.vorgaenger = vorgaenger;
     }
 
-    void setNachfolger(Arbeitspaket[] nachfolger) {
+    void setNachfolger(ArrayList<Arbeitspaket> nachfolger) {
         this.nachfolger = nachfolger;
     }
 
@@ -74,7 +75,7 @@ class Arbeitspaket {
 
     void calculateFaz() {
         if (vorgaenger != null) {
-            faz = vorgaenger[0].getFez();
+            faz = vorgaenger.get(0).getFez();
             for (Arbeitspaket pointer : vorgaenger) {
                 if (pointer.getFez() > faz) {
                     faz = pointer.getFez();
@@ -93,7 +94,7 @@ class Arbeitspaket {
 
     void calculateSez() {
         if (nachfolger != null) {
-            int min = nachfolger[0].getSaz();
+            int min = nachfolger.get(0).getSaz();
             for (Arbeitspaket pointer : nachfolger) {
                 if (pointer.getSaz() < min) {
                     min = pointer.getSaz();
@@ -109,7 +110,7 @@ class Arbeitspaket {
 
     void calculateUp() {
         if (nachfolger != null) {
-            int min = nachfolger[0].getFaz();
+            int min = nachfolger.get(0).getFaz();
             for (Arbeitspaket pointer : nachfolger) {
                 if (pointer.getFaz() < min) {
                     min = pointer.getFaz();
@@ -129,7 +130,7 @@ class Arbeitspaket {
 
     void calculateFp() {
         if (nachfolger != null) {
-            int min = nachfolger[0].getFaz();
+            int min = nachfolger.get(0).getFaz();
             for (Arbeitspaket pointer : nachfolger) {
                 if (pointer.getFaz() < min) {
                     min = pointer.getFaz();
