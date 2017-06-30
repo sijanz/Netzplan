@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class Arbeitspaket {
@@ -49,8 +48,20 @@ class Arbeitspaket {
         return this.i;
     }
 
+    int getD() {
+        return this.d;
+    }
+
     boolean isMarked() {
         return this.isMarked;
+    }
+
+    void setI(char i) {
+        this.i = i;
+    }
+
+    void setD(int d) {
+        this.d = d;
     }
 
     void setSez(int sez) {

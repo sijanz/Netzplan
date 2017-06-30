@@ -37,6 +37,81 @@ class UserInterface {
         }
     }
 
+    private void bearbeiteArbeitspaket() {
+        System.out.println("Verfuegbare Arbeitspakete:");
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            System.out.println(pointer.getI());
+        }
+        System.out.print("Zu bearbeitendes Arbeitspaket: ");
+        Scanner scanner = new Scanner(System.in);
+        boolean found = false;
+        char selection = scanner.nextLine().charAt(0);
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            if (pointer.getI() == selection) {
+                showEditMenu(pointer);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.err.println("Arbeitspaket nicht gefunden!");
+        }
+    }
+
+    private void showEditMenu(Arbeitspaket paket) {
+        System.out.printf("Arbeitspaket %s:%n", paket.getI());
+        System.out.println();
+        System.out.println("1       Bezeichner aendern");
+        System.out.println("2       Dauer aendern");
+        System.out.println("3       Vorgaenger hinzufuegen");
+        System.out.println("4       Vorgaenger entfernen");
+        System.out.println("5       Nachfolger hinzufuegen");
+        System.out.println("6       Nachfolger entfernen");
+        System.out.println("0       Hauptmenue");
+
+        Scanner scanner = new Scanner(System.in);
+        int selection = scanner.nextInt();
+        switch (selection) {
+            case 1:
+                changeI(paket);
+                break;
+            case 2:
+                changeD(paket);
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 0:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void changeI(Arbeitspaket paket) {
+        System.out.println("Bisheriger Bezeichner: " + paket.getI());
+        System.out.print("Neuer Bezeichner: ");
+
+        //TODO: exceptions
+        Scanner scanner = new Scanner(System.in);
+        char newI = scanner.nextLine().charAt(0);
+        paket.setI(newI);
+    }
+
+    private void changeD(Arbeitspaket paket) {
+        System.out.println("Bisherige Dauer: " + paket.getD());
+        System.out.print("Neue Dauer: ");
+
+        //TODO: exceptions
+        Scanner scanner = new Scanner(System.in);
+        int newD = scanner.nextInt();
+        paket.setD(newD);
+    }
+
     private void entferneArbeitspaket() {
         System.out.println("Verfuegbare Arbeitspakete:");
         for (Arbeitspaket pointer : Netzplan.liste) {
@@ -48,7 +123,7 @@ class UserInterface {
         Arbeitspaket tmp = null;
         char selection = scanner.nextLine().charAt(0);
         for (Arbeitspaket pointer : Netzplan.liste) {
-            if (selection == pointer.getI()) {
+            if (pointer.getI() == selection) {
                 tmp = pointer;
                 removeDependecies(pointer);
                 found = true;
@@ -56,14 +131,12 @@ class UserInterface {
         }
         if (tmp != null) {
             Netzplan.liste.remove(tmp);
-
         }
         if (!found) {
             System.err.println("Arbeitspaket nicht gefunden!");
         }
     }
 
-    //FIXME: NUllPointerException (line 64)
     private void removeDependecies(Arbeitspaket paket) {
         for (Arbeitspaket pointer : Netzplan.liste) {
             if (pointer.getVorgaenger() != null) {
