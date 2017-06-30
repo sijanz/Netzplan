@@ -45,31 +45,41 @@ class UserInterface {
         System.out.print("Zu loeschendes Arbeitspaket: ");
         Scanner scanner = new Scanner(System.in);
         boolean found = false;
+        Arbeitspaket tmp = null;
         char selection = scanner.nextLine().charAt(0);
         for (Arbeitspaket pointer : Netzplan.liste) {
             if (selection == pointer.getI()) {
+                tmp = pointer;
                 removeDependecies(pointer);
-                Netzplan.liste.remove(pointer);
                 found = true;
             }
+        }
+        if (tmp != null) {
+            Netzplan.liste.remove(tmp);
+
         }
         if (!found) {
             System.err.println("Arbeitspaket nicht gefunden!");
         }
     }
 
+    //FIXME: NUllPointerException (line 64)
     private void removeDependecies(Arbeitspaket paket) {
         for (Arbeitspaket pointer : Netzplan.liste) {
-            for (Arbeitspaket vor : pointer.getVorgaenger()) {
-                if (vor == paket) {
-                    //TODO
-                    pointer.getVorgaenger().remove(vor);
+            if (pointer.getVorgaenger() != null) {
+                for (Arbeitspaket vor : pointer.getVorgaenger()) {
+                    if (vor == paket) {
+                        pointer.getVorgaenger().remove(vor);
+                        break;
+                    }
                 }
             }
-            for (Arbeitspaket nach : pointer.getNachfolger()) {
-                if (nach == paket) {
-                    //TODO
-                    pointer.getNachfolger().remove(nach);
+            if (pointer.getNachfolger() != null) {
+                for (Arbeitspaket nach : pointer.getNachfolger()) {
+                    if (nach == paket) {
+                        pointer.getNachfolger().remove(nach);
+                        break;
+                    }
                 }
             }
         }
