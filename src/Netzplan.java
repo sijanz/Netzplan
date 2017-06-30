@@ -37,7 +37,7 @@ public class Netzplan {
         }
     }
 
-    static void output() {
+    private static void output() {
         System.out.println("Legende:");
         System.out.println("i FAZ FEZ");
         System.out.println("D SAZ SEZ");
