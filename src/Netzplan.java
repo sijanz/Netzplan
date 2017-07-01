@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class Netzplan {
 
-    static boolean stop = false;
     static ArrayList<Arbeitspaket> liste = new ArrayList<>();
 
 
@@ -106,9 +105,6 @@ public class Netzplan {
 
 
         UserInterface ui = new UserInterface();
-
-        while (!stop) {
-            ui.showMainMenu();
-        }
+        ui.start();
     }
 }

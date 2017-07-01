@@ -3,13 +3,21 @@ import java.util.Scanner;
 
 class UserInterface {
 
+    private boolean stop = false;
+
+    void start() {
+        while (!stop) {
+            showMainMenu();
+        }
+    }
+
     //TODO: add 'clearConsole()' and 'System.console().readLine()' where needed
     private void clearConsole() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
-    void showMainMenu() {
+    private void showMainMenu() {
         clearConsole();
         System.out.println("***Netzplan-Rechner***");
         System.out.println();
@@ -285,7 +293,7 @@ class UserInterface {
         int selection = scanner.nextInt();
         switch (selection) {
             case 1:
-                Netzplan.stop = true;
+                this.stop = true;
                 break;
             case 2:
                 showMainMenu();
