@@ -3,6 +3,11 @@ import java.util.Scanner;
 
 class UserInterface {
 
+    private void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     void showMainMenu() {
         System.out.println("***Netzplan-Rechner***");
         System.out.println();
@@ -19,31 +24,40 @@ class UserInterface {
         switch (selection) {
             case 1:
                 showArbeitspakete();
+                clearConsole();
                 break;
             case 2:
+                clearConsole();
                 break;
             case 3:
                 bearbeiteArbeitspaket();
+                clearConsole();
                 break;
             case 4:
                 entferneArbeitspaket();
+                clearConsole();
                 break;
             case 5:
                 zeigeNetzplan();
+                clearConsole();
                 break;
             case 6:
                 entferneNetzplan();
+                clearConsole();
                 break;
             case 0:
                 closeProgram();
+                clearConsole();
                 break;
             default:
                 showMainMenu();
+                clearConsole();
                 break;
         }
     }
 
     private void showArbeitspakete() {
+        //TODO: exceptions
         for (Arbeitspaket pointer : Netzplan.liste) {
             System.out.printf("Arbeitspaket %s, Dauer: %d%n", pointer.getI(), pointer.getD());
             if (pointer.getVorgaenger() != null) {
@@ -64,6 +78,7 @@ class UserInterface {
     }
 
     private void bearbeiteArbeitspaket() {
+        //TODO: exceptions
         System.out.println("Verfuegbare Arbeitspakete:");
         for (Arbeitspaket pointer : Netzplan.liste) {
             System.out.println(pointer.getI());
@@ -161,6 +176,7 @@ class UserInterface {
     }
 
     private void entferneArbeitspaket() {
+        //TODO: exceptions
         System.out.println("Verfuegbare Arbeitspakete:");
         for (Arbeitspaket pointer : Netzplan.liste) {
             System.out.println(pointer.getI());
