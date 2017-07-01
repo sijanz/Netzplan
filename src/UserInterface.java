@@ -78,25 +78,31 @@ class UserInterface {
     }
 
     private void bearbeiteArbeitspaket() {
-        //TODO: exceptions
-        System.out.println("Verfuegbare Arbeitspakete:");
-        for (Arbeitspaket pointer : Netzplan.liste) {
-            System.out.println(pointer.getI());
-        }
-        System.out.print("Zu bearbeitendes Arbeitspaket: ");
-        Scanner scanner = new Scanner(System.in);
-        boolean found = false;
-        char selection = scanner.nextLine().charAt(0);
-        for (Arbeitspaket pointer : Netzplan.liste) {
-            if (pointer.getI() == selection) {
-                showEditMenu(pointer);
-                found = true;
-            }
-        }
-        if (!found) {
-            System.err.println("Arbeitspaket nicht gefunden!");
+        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+            System.err.println("Keine Eintraege gefunden!");
             System.console().readLine();
-            clearConsole();
+        } else {
+            System.out.println("Verfuegbare Arbeitspakete:");
+            for (Arbeitspaket pointer : Netzplan.liste) {
+                System.out.println(pointer.getI());
+            }
+            System.out.print("Zu bearbeitendes Arbeitspaket: ");
+            Scanner scanner = new Scanner(System.in);
+            boolean found = false;
+
+            //TODO: exceptions
+            char selection = scanner.nextLine().charAt(0);
+            for (Arbeitspaket pointer : Netzplan.liste) {
+                if (pointer.getI() == selection) {
+                    showEditMenu(pointer);
+                    found = true;
+                }
+            }
+            if (!found) {
+                System.err.println("Arbeitspaket nicht gefunden!");
+                System.console().readLine();
+                clearConsole();
+            }
         }
     }
 
@@ -109,7 +115,7 @@ class UserInterface {
         System.out.println("4:  Vorgaenger entfernen");
         System.out.println("5:  Nachfolger hinzufuegen");
         System.out.println("6:  Nachfolger entfernen");
-        System.out.println("0:  Hauptmenue");
+        System.out.println("0:  Hauptmenu");
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();
@@ -285,6 +291,7 @@ class UserInterface {
                 showMainMenu();
                 break;
             default:
+                clearConsole();
                 closeProgram();
         }
     }
