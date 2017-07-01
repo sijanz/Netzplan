@@ -6,13 +6,13 @@ class UserInterface {
     void showMainMenu() {
         System.out.println("***Netzplan-Rechner***");
         System.out.println();
-        System.out.println("1       Uebersicht Arbeitspakete");
-        System.out.println("2       Arbeitspaket hinzufuegen");
-        System.out.println("3       Arbeitspaket bearbeiten");
-        System.out.println("4       Arbeitspaket entfernen");
-        System.out.println("5       Netzplan berechnen und anzeigen");
-        System.out.println("6       Netzplan entfernen");
-        System.out.println("0       Programm beenden");
+        System.out.println("1:  Uebersicht Arbeitspakete");
+        System.out.println("2:  Arbeitspaket hinzufuegen");
+        System.out.println("3:  Arbeitspaket bearbeiten");
+        System.out.println("4:  Arbeitspaket entfernen");
+        System.out.println("5:  Netzplan berechnen und anzeigen");
+        System.out.println("6:  Netzplan entfernen");
+        System.out.println("0:  Programm beenden");
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();
@@ -86,13 +86,13 @@ class UserInterface {
     private void showEditMenu(Arbeitspaket paket) {
         System.out.printf("Arbeitspaket %s:%n", paket.getI());
         System.out.println();
-        System.out.println("1       Bezeichner aendern");
-        System.out.println("2       Dauer aendern");
-        System.out.println("3       Vorgaenger hinzufuegen");
-        System.out.println("4       Vorgaenger entfernen");
-        System.out.println("5       Nachfolger hinzufuegen");
-        System.out.println("6       Nachfolger entfernen");
-        System.out.println("0       Hauptmenue");
+        System.out.println("1:  Bezeichner aendern");
+        System.out.println("2:  Dauer aendern");
+        System.out.println("3:  Vorgaenger hinzufuegen");
+        System.out.println("4:  Vorgaenger entfernen");
+        System.out.println("5:  Nachfolger hinzufuegen");
+        System.out.println("6:  Nachfolger entfernen");
+        System.out.println("0:  Hauptmenue");
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();
@@ -107,6 +107,7 @@ class UserInterface {
                 addVorgaenger(paket);
                 break;
             case 4:
+                //TODO
                 break;
             case 5:
                 break;
@@ -212,8 +213,8 @@ class UserInterface {
 
     private void entferneNetzplan() {
         System.out.println("Wollen Sie den aktuellen Netzplan wirklich entfernen?");
-        System.out.println("1       Ja");
-        System.out.println("2       Nein");
+        System.out.println("1:  Ja");
+        System.out.println("2:  Nein");
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();
@@ -232,8 +233,8 @@ class UserInterface {
 
     private void closeProgram() {
         System.out.println("Wollen Sie das Programm wirklich beenden?");
-        System.out.println("1       Ja");
-        System.out.println("2       Nein");
+        System.out.println("1:  Ja");
+        System.out.println("2:  Nein");
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();

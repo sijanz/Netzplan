@@ -51,7 +51,7 @@ public class Netzplan {
 
     static void calculate() {
         if (liste.isEmpty()) {
-            System.out.println("Keine Eintraege gefunden!");
+            System.err.println("Keine Eintraege gefunden!");
             System.out.println();
         } else {
             // Vorwaertsrechnung
@@ -72,6 +72,10 @@ public class Netzplan {
     }
 
     public static void main(String[] args) {
+
+
+
+        // *** TEST-INITIALISIERUNG ***
 
         // Arbeitspakete als Objekte initialisieren
         Arbeitspaket a = new Arbeitspaket('A', 5);
@@ -103,6 +107,10 @@ public class Netzplan {
         d.setVorgaenger(new ArrayList<>());
         d.getVorgaenger().add(b);
         d.getVorgaenger().add(c);
+
+        // *** TEST-INITIALISIERUNG ***
+
+
 
         UserInterface ui = new UserInterface();
 
