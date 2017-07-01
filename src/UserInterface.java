@@ -3,12 +3,14 @@ import java.util.Scanner;
 
 class UserInterface {
 
+    //TODO: add 'clearConsole()' and 'System.console().readLine()' where needed
     private void clearConsole() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
     void showMainMenu() {
+        clearConsole();
         System.out.println("***Netzplan-Rechner***");
         System.out.println();
         System.out.println("1:  Uebersicht Arbeitspakete");
@@ -21,59 +23,57 @@ class UserInterface {
 
         Scanner scanner = new Scanner(System.in);
         int selection = scanner.nextInt();
+        clearConsole();
         switch (selection) {
             case 1:
                 showArbeitspakete();
-                clearConsole();
                 break;
             case 2:
-                clearConsole();
                 break;
             case 3:
                 bearbeiteArbeitspaket();
-                clearConsole();
                 break;
             case 4:
                 entferneArbeitspaket();
-                clearConsole();
                 break;
             case 5:
                 zeigeNetzplan();
-                clearConsole();
                 break;
             case 6:
                 entferneNetzplan();
-                clearConsole();
                 break;
             case 0:
                 closeProgram();
-                clearConsole();
                 break;
             default:
                 showMainMenu();
-                clearConsole();
                 break;
         }
     }
 
     private void showArbeitspakete() {
-        //TODO: exceptions
-        for (Arbeitspaket pointer : Netzplan.liste) {
-            System.out.printf("Arbeitspaket %s, Dauer: %d%n", pointer.getI(), pointer.getD());
-            if (pointer.getVorgaenger() != null) {
-                System.out.println(" Vorgaenger:");
-                for (Arbeitspaket vor : pointer.getVorgaenger()) {
-                    System.out.println("  " + vor.getI());
+        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+            System.err.println("Keine Eintraege gefunden!");
+            System.console().readLine();
+        } else {
+            for (Arbeitspaket pointer : Netzplan.liste) {
+                System.out.printf("Arbeitspaket %s, Dauer: %d%n", pointer.getI(), pointer.getD());
+                if (pointer.getVorgaenger() != null) {
+                    System.out.println(" Vorgaenger:");
+                    for (Arbeitspaket vor : pointer.getVorgaenger()) {
+                        System.out.println("  " + vor.getI());
+                    }
+                    System.out.println();
+                }
+                if (pointer.getNachfolger() != null) {
+                    System.out.println(" Nachfolger:");
+                    for (Arbeitspaket nach : pointer.getNachfolger()) {
+                        System.out.println("  " + nach.getI());
+                    }
                 }
                 System.out.println();
             }
-            if (pointer.getNachfolger() != null) {
-                System.out.println(" Nachfolger:");
-                for (Arbeitspaket nach : pointer.getNachfolger()) {
-                    System.out.println("  " + nach.getI());
-                }
-            }
-            System.out.println();
+            System.console().readLine();
         }
     }
 
@@ -95,6 +95,8 @@ class UserInterface {
         }
         if (!found) {
             System.err.println("Arbeitspaket nicht gefunden!");
+            System.console().readLine();
+            clearConsole();
         }
     }
 
@@ -172,32 +174,43 @@ class UserInterface {
         }
         if (!found) {
             System.err.println("Kein Arbeitspaket mit diesem Bezeichner gefunden!");
+            System.console().readLine();
+            clearConsole();
         }
     }
 
     private void entferneArbeitspaket() {
-        //TODO: exceptions
-        System.out.println("Verfuegbare Arbeitspakete:");
-        for (Arbeitspaket pointer : Netzplan.liste) {
-            System.out.println(pointer.getI());
-        }
-        System.out.print("Zu loeschendes Arbeitspaket: ");
-        Scanner scanner = new Scanner(System.in);
-        boolean found = false;
-        Arbeitspaket tmp = null;
-        char selection = scanner.nextLine().charAt(0);
-        for (Arbeitspaket pointer : Netzplan.liste) {
-            if (pointer.getI() == selection) {
-                tmp = pointer;
-                removeDependencies(pointer);
-                found = true;
+        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+            System.err.println("Keine Eintraege gefunden!");
+            System.console().readLine();
+        } else {
+            System.out.println("Verfuegbare Arbeitspakete:");
+            for (Arbeitspaket pointer : Netzplan.liste) {
+                System.out.println(pointer.getI());
             }
-        }
-        if (tmp != null) {
-            Netzplan.liste.remove(tmp);
-        }
-        if (!found) {
-            System.err.println("Arbeitspaket nicht gefunden!");
+            System.out.print("Zu loeschendes Arbeitspaket: ");
+            Scanner scanner = new Scanner(System.in);
+            boolean found = false;
+            Arbeitspaket tmp = null;
+            char selection = scanner.nextLine().charAt(0);
+            for (Arbeitspaket pointer : Netzplan.liste) {
+                if (pointer.getI() == selection) {
+                    tmp = pointer;
+                    removeDependencies(pointer);
+                    found = true;
+                }
+            }
+            if (tmp != null) {
+                Netzplan.liste.remove(tmp);
+                clearConsole();
+                System.out.println("Arbeitspaket entfernt.");
+                System.console().readLine();
+            }
+            if (!found) {
+                System.err.println("Arbeitspaket nicht gefunden!");
+                System.console().readLine();
+                clearConsole();
+            }
         }
     }
 
@@ -223,8 +236,14 @@ class UserInterface {
     }
 
     private void zeigeNetzplan() {
-        Netzplan.calculate();
-        showMainMenu();
+        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+            System.err.println("Keine Eintraege gefunden!");
+            System.console().readLine();
+        } else {
+            Netzplan.calculate();
+            System.console().readLine();
+            showMainMenu();
+        }
     }
 
     private void entferneNetzplan() {
@@ -237,6 +256,10 @@ class UserInterface {
         switch (selection) {
             case 1:
                 Netzplan.liste.clear();
+                clearConsole();
+                System.out.println("Netzplan entfernt!");
+                System.console().readLine();
+                clearConsole();
                 break;
             case 2:
                 showMainMenu();

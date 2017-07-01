@@ -50,29 +50,23 @@ public class Netzplan {
     }
 
     static void calculate() {
-        if (liste.isEmpty()) {
-            System.err.println("Keine Eintraege gefunden!");
-            System.out.println();
-        } else {
-            // Vorwaertsrechnung
-            forwardPass();
+        // Vorwaertsrechnung
+        forwardPass();
 
-            // End-SEZ auf End-FEZ setzen
-            setSezToFez();
+        // End-SEZ auf End-FEZ setzen
+        setSezToFez();
 
-            // Rueckwaertsrechnung
-            backwardPass();
+        // Rueckwaertsrechnung
+        backwardPass();
 
-            // Pufferberechnung
-            bufferCalculation();
+        // Pufferberechnung
+        bufferCalculation();
 
-            // Output
-            output();
-        }
+        // Output
+        output();
     }
 
     public static void main(String[] args) {
-
 
 
         // *** TEST-INITIALISIERUNG ***
@@ -109,7 +103,6 @@ public class Netzplan {
         d.getVorgaenger().add(c);
 
         // *** TEST-INITIALISIERUNG ***
-
 
 
         UserInterface ui = new UserInterface();
