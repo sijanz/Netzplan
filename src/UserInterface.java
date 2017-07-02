@@ -158,11 +158,11 @@ class UserInterface {
                 break;
             case 4:
                 removeVorgaenger(paket);
-                //TODO
                 break;
             case 5:
                 break;
             case 6:
+                removeNachfolger(paket);
                 break;
             case 0:
                 break;
@@ -243,7 +243,7 @@ class UserInterface {
 
     private void removeVorgaenger(Arbeitspaket paket) {
         clearConsole();
-        if (paket.getNachfolger() != null || !paket.getVorgaenger().isEmpty()) {
+        if (paket.getVorgaenger() != null || !paket.getVorgaenger().isEmpty()) {
             System.out.println("Zu loeschende Vorgaenger:");
             for (Arbeitspaket vor : paket.getVorgaenger()) {
                 System.out.println(vor.getI());
@@ -266,6 +266,35 @@ class UserInterface {
             }
         } else {
             System.err.println("Keine Vorgaenger gefunden!");
+            System.console().readLine();
+        }
+    }
+
+    private void removeNachfolger(Arbeitspaket paket) {
+        clearConsole();
+        if (paket.getNachfolger() != null || !paket.getNachfolger().isEmpty()) {
+            System.out.println("Zu loeschende Nachfolger:");
+            for (Arbeitspaket nach : paket.getNachfolger()) {
+                System.out.println(nach.getI());
+            }
+            Scanner scanner = new Scanner(System.in);
+            char selection = scanner.nextLine().charAt(0);
+            boolean found = false;
+            for (Arbeitspaket nach : paket.getNachfolger()) {
+                if (nach.getI() == selection) {
+                    clearConsole();
+                    found = true;
+                    paket.getNachfolger().remove(nach);
+                    System.out.println("Nachfolger entfernt.");
+                    System.console().readLine();
+                    break;
+                }
+            }
+            if (!found) {
+                notFound();
+            }
+        } else {
+            System.err.println("Keine Nachfolger gefunden!");
             System.console().readLine();
         }
     }
