@@ -11,7 +11,6 @@ class UserInterface {
         }
     }
 
-    //TODO: add 'clearConsole()' and 'System.console().readLine()' where needed
     private void clearConsole() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -101,6 +100,7 @@ class UserInterface {
             for (Arbeitspaket pointer : Netzplan.liste) {
                 System.out.println(pointer.getI());
             }
+            System.out.println();
             System.out.print("Zu bearbeitendes Arbeitspaket: ");
             Scanner scanner = new Scanner(System.in);
             boolean found = false;
@@ -119,14 +119,14 @@ class UserInterface {
     }
 
     private void showEditMenu(Arbeitspaket paket) {
-        System.out.printf("Arbeitspaket %s:%n", paket.getI());
+        System.out.printf("Arbeitspaket %s%n", paket.getI());
         System.out.println(" Dauer: " + paket.getD());
         if (paket.getVorgaenger() != null) {
             System.out.print(" Vorgaenger: ");
             for (Arbeitspaket vor : paket.getVorgaenger()) {
                 System.out.print(vor.getI() + " ");
             }
-            System.out.printf("%n");
+            System.out.println();
         }
         if (paket.getNachfolger() != null) {
             System.out.print(" Nachfolger: ");
@@ -157,6 +157,7 @@ class UserInterface {
                 addVorgaenger(paket);
                 break;
             case 4:
+                removeVorgaenger(paket);
                 //TODO
                 break;
             case 5:
@@ -236,6 +237,35 @@ class UserInterface {
         }
         if (!found) {
             System.err.println("Kein Arbeitspaket mit diesem Bezeichner gefunden!");
+            System.console().readLine();
+        }
+    }
+
+    private void removeVorgaenger(Arbeitspaket paket) {
+        clearConsole();
+        if (paket.getNachfolger() != null || !paket.getVorgaenger().isEmpty()) {
+            System.out.println("Zu loeschende Vorgaenger:");
+            for (Arbeitspaket vor : paket.getVorgaenger()) {
+                System.out.println(vor.getI());
+            }
+            Scanner scanner = new Scanner(System.in);
+            char selection = scanner.nextLine().charAt(0);
+            boolean found = false;
+            for (Arbeitspaket vor : paket.getVorgaenger()) {
+                if (vor.getI() == selection) {
+                    clearConsole();
+                    found = true;
+                    paket.getVorgaenger().remove(vor);
+                    System.out.println("Vorgaenger entfernt.");
+                    System.console().readLine();
+                    break;
+                }
+            }
+            if (!found) {
+                notFound();
+            }
+        } else {
+            System.err.println("Keine Vorgaenger gefunden!");
             System.console().readLine();
         }
     }
