@@ -120,6 +120,21 @@ class UserInterface {
 
     private void showEditMenu(Arbeitspaket paket) {
         System.out.printf("Arbeitspaket %s:%n", paket.getI());
+        System.out.println(" Dauer: " + paket.getD());
+        if (paket.getVorgaenger() != null) {
+            System.out.print(" Vorgaenger: ");
+            for (Arbeitspaket vor : paket.getVorgaenger()) {
+                System.out.print(vor.getI() + " ");
+            }
+            System.out.printf("%n");
+        }
+        if (paket.getNachfolger() != null) {
+            System.out.print(" Nachfolger: ");
+            for (Arbeitspaket nach : paket.getNachfolger()) {
+                System.out.print(nach.getI() + " ");
+            }
+            System.out.printf("%n");
+        }
         System.out.println();
         System.out.println("1:  Bezeichner aendern");
         System.out.println("2:  Dauer aendern");
@@ -170,7 +185,6 @@ class UserInterface {
                 System.err.println("Bezeichner bereits vorhanden!");
                 System.console().readLine();
                 clearConsole();
-                showEditMenu(paket);
                 break;
             }
         }
@@ -180,11 +194,11 @@ class UserInterface {
             System.out.println("Neuer Bezeichner gesetzt.");
             System.console().readLine();
             clearConsole();
-            showEditMenu(paket);
         }
     }
 
     private void changeD(Arbeitspaket paket) {
+        clearConsole();
         System.out.println("Bisherige Dauer: " + paket.getD());
         System.out.print("Neue Dauer: ");
 
@@ -192,9 +206,14 @@ class UserInterface {
         Scanner scanner = new Scanner(System.in);
         int newD = scanner.nextInt();
         paket.setD(newD);
+        clearConsole();
+        System.out.println("Neue Dauer gesetzt.");
+        System.console().readLine();
+        clearConsole();
     }
 
     private void addVorgaenger(Arbeitspaket paket) {
+        clearConsole();
         System.out.print("Bezeichner des Vorgaengers: ");
 
         Scanner scanner = new Scanner(System.in);
@@ -203,16 +222,21 @@ class UserInterface {
         for (Arbeitspaket pointer : Netzplan.liste) {
             if (pointer.getI() == bez) {
                 found = true;
+
+                //TODO: check for duplicates
                 if (paket.getVorgaenger() == null) {
                     paket.setVorgaenger(new ArrayList<>());
                 }
                 paket.getVorgaenger().add(pointer);
+                clearConsole();
+                System.out.println("Vorgaenger hinzugefuegt.");
+                System.console().readLine();
+                break;
             }
         }
         if (!found) {
             System.err.println("Kein Arbeitspaket mit diesem Bezeichner gefunden!");
             System.console().readLine();
-            clearConsole();
         }
     }
 
@@ -315,6 +339,7 @@ class UserInterface {
         int selection = scanner.nextInt();
         switch (selection) {
             case 1:
+                clearConsole();
                 this.stop = true;
                 break;
             case 2:
