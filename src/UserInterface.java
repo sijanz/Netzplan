@@ -59,6 +59,13 @@ class UserInterface {
         }
     }
 
+    private void notFound() {
+        clearConsole();
+        System.err.println("Arbeitspaket nicht gefunden!");
+        System.console().readLine();
+        clearConsole();
+    }
+
     private void showArbeitspakete() {
         if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
             System.err.println("Keine Eintraege gefunden!");
@@ -97,19 +104,16 @@ class UserInterface {
             System.out.print("Zu bearbeitendes Arbeitspaket: ");
             Scanner scanner = new Scanner(System.in);
             boolean found = false;
-
-            //TODO: exceptions
             char selection = scanner.nextLine().charAt(0);
             for (Arbeitspaket pointer : Netzplan.liste) {
                 if (pointer.getI() == selection) {
+                    clearConsole();
                     showEditMenu(pointer);
                     found = true;
                 }
             }
             if (!found) {
-                System.err.println("Arbeitspaket nicht gefunden!");
-                System.console().readLine();
-                clearConsole();
+                notFound();
             }
         }
     }
@@ -221,9 +225,7 @@ class UserInterface {
                 System.console().readLine();
             }
             if (!found) {
-                System.err.println("Arbeitspaket nicht gefunden!");
-                System.console().readLine();
-                clearConsole();
+                notFound();
             }
         }
     }
@@ -279,6 +281,7 @@ class UserInterface {
                 showMainMenu();
                 break;
             default:
+                clearConsole();
                 entferneNetzplan();
                 break;
         }
@@ -301,6 +304,7 @@ class UserInterface {
             default:
                 clearConsole();
                 closeProgram();
+                break;
         }
     }
 }
