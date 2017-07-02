@@ -119,6 +119,7 @@ class UserInterface {
     }
 
     private void showEditMenu(Arbeitspaket paket) {
+        clearConsole();
         System.out.printf("Arbeitspaket %s%n", paket.getI());
         System.out.println(" Dauer: " + paket.getD());
         if (paket.getVorgaenger() != null) {
@@ -160,13 +161,16 @@ class UserInterface {
                 removeVorgaenger(paket);
                 break;
             case 5:
+                addNachfolger(paket);
                 break;
             case 6:
                 removeNachfolger(paket);
                 break;
             case 0:
+                showMainMenu();
                 break;
             default:
+                showEditMenu(paket);
                 break;
         }
     }
@@ -266,6 +270,34 @@ class UserInterface {
             }
         } else {
             System.err.println("Keine Vorgaenger gefunden!");
+            System.console().readLine();
+        }
+    }
+
+    private void addNachfolger(Arbeitspaket paket) {
+        clearConsole();
+        System.out.print("Bezeichner des Nachfolger: ");
+
+        Scanner scanner = new Scanner(System.in);
+        char bez = scanner.nextLine().charAt(0);
+        boolean found = false;
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            if (pointer.getI() == bez) {
+                found = true;
+
+                //TODO: check for duplicates
+                if (paket.getNachfolger() == null) {
+                    paket.setNachfolger(new ArrayList<>());
+                }
+                paket.getNachfolger().add(pointer);
+                clearConsole();
+                System.out.println("Nachfolger hinzugefuegt.");
+                System.console().readLine();
+                break;
+            }
+        }
+        if (!found) {
+            System.err.println("Kein Arbeitspaket mit diesem Bezeichner gefunden!");
             System.console().readLine();
         }
     }
