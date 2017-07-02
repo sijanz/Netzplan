@@ -176,6 +176,11 @@ class UserInterface {
         }
         if (!vorhanden) {
             paket.setI(newI);
+            clearConsole();
+            System.out.println("Neuer Bezeichner gesetzt.");
+            System.console().readLine();
+            clearConsole();
+            showEditMenu(paket);
         }
     }
 
