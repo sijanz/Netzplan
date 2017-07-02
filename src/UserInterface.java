@@ -156,13 +156,27 @@ class UserInterface {
     }
 
     private void changeI(Arbeitspaket paket) {
+        clearConsole();
         System.out.println("Bisheriger Bezeichner: " + paket.getI());
         System.out.print("Neuer Bezeichner: ");
 
-        //TODO: exceptions, dependencies
         Scanner scanner = new Scanner(System.in);
         char newI = scanner.nextLine().charAt(0);
-        paket.setI(newI);
+        boolean vorhanden = false;
+        for (Arbeitspaket pointer : Netzplan.liste) {
+            if (pointer.getI() == newI) {
+                vorhanden = true;
+                clearConsole();
+                System.err.println("Bezeichner bereits vorhanden!");
+                System.console().readLine();
+                clearConsole();
+                showEditMenu(paket);
+                break;
+            }
+        }
+        if (!vorhanden) {
+            paket.setI(newI);
+        }
     }
 
     private void changeD(Arbeitspaket paket) {
