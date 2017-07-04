@@ -4,7 +4,6 @@ public class Netzplan {
 
     static ArrayList<Arbeitspaket> liste = new ArrayList<>();
 
-
     private static void forwardPass() {
         for (Arbeitspaket pointer : liste) {
             pointer.calculateFaz();

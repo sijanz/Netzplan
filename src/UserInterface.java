@@ -36,6 +36,7 @@ class UserInterface {
                 showArbeitspakete();
                 break;
             case 2:
+                addArbeitspaket();
                 break;
             case 3:
                 bearbeiteArbeitspaket();
@@ -89,6 +90,25 @@ class UserInterface {
             }
             System.console().readLine();
         }
+    }
+
+    private void addArbeitspaket() {
+        clearConsole();
+        System.out.print("Bezeichner des Arbeitspakets: ");
+        Scanner scanner = new Scanner(System.in);
+        char initialI = scanner.nextLine().charAt(0);
+        clearConsole();
+        System.out.print("Dauer des Arbeitspakets: ");
+        int initialD = scanner.nextInt();
+        Arbeitspaket tmp = new Arbeitspaket(initialI, initialD);
+
+        //TODO: Beschriftungu
+        addVorgaenger(tmp);
+        addNachfolger(tmp);
+        Netzplan.liste.add(tmp);
+        clearConsole();
+        System.out.println("Neues Arbeitspaket hinzugefuegt.");
+        System.console().readLine();
     }
 
     private void bearbeiteArbeitspaket() {
