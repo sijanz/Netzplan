@@ -2,7 +2,11 @@ import java.util.ArrayList;
 
 public class Netzplan {
 
-    static ArrayList<Arbeitspaket> liste = new ArrayList<>();
+    private static ArrayList<Arbeitspaket> liste = new ArrayList<>();
+
+    static ArrayList<Arbeitspaket> getListe() {
+        return liste;
+    }
 
     private static void forwardPass() {
         for (Arbeitspaket pointer : liste) {

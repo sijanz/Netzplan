@@ -67,11 +67,11 @@ class UserInterface {
     }
 
     private void showArbeitspakete() {
-        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+        if (Netzplan.getListe() == null || Netzplan.getListe().isEmpty()) {
             System.err.println("Keine Eintraege gefunden!");
             System.console().readLine();
         } else {
-            for (Arbeitspaket pointer : Netzplan.liste) {
+            for (Arbeitspaket pointer : Netzplan.getListe()) {
                 System.out.printf("Arbeitspaket %s, Dauer: %d%n", pointer.getI(), pointer.getD());
                 if (pointer.getVorgaenger() != null) {
                     System.out.println(" Vorgaenger:");
@@ -105,19 +105,19 @@ class UserInterface {
         //TODO: Beschriftungu
         addVorgaenger(tmp);
         addNachfolger(tmp);
-        Netzplan.liste.add(tmp);
+        Netzplan.getListe().add(tmp);
         clearConsole();
         System.out.println("Neues Arbeitspaket hinzugefuegt.");
         System.console().readLine();
     }
 
     private void bearbeiteArbeitspaket() {
-        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+        if (Netzplan.getListe() == null || Netzplan.getListe().isEmpty()) {
             System.err.println("Keine Eintraege gefunden!");
             System.console().readLine();
         } else {
             System.out.println("Verfuegbare Arbeitspakete:");
-            for (Arbeitspaket pointer : Netzplan.liste) {
+            for (Arbeitspaket pointer : Netzplan.getListe()) {
                 System.out.println(pointer.getI());
             }
             System.out.println();
@@ -125,7 +125,7 @@ class UserInterface {
             Scanner scanner = new Scanner(System.in);
             boolean found = false;
             char selection = scanner.nextLine().charAt(0);
-            for (Arbeitspaket pointer : Netzplan.liste) {
+            for (Arbeitspaket pointer : Netzplan.getListe()) {
                 if (pointer.getI() == selection) {
                     clearConsole();
                     showEditMenu(pointer);
@@ -203,7 +203,7 @@ class UserInterface {
         Scanner scanner = new Scanner(System.in);
         char newI = scanner.nextLine().charAt(0);
         boolean vorhanden = false;
-        for (Arbeitspaket pointer : Netzplan.liste) {
+        for (Arbeitspaket pointer : Netzplan.getListe()) {
             if (pointer.getI() == newI) {
                 vorhanden = true;
                 clearConsole();
@@ -244,7 +244,7 @@ class UserInterface {
         Scanner scanner = new Scanner(System.in);
         char bez = scanner.nextLine().charAt(0);
         boolean found = false;
-        for (Arbeitspaket pointer : Netzplan.liste) {
+        for (Arbeitspaket pointer : Netzplan.getListe()) {
             if (pointer.getI() == bez) {
                 found = true;
 
@@ -301,7 +301,7 @@ class UserInterface {
         Scanner scanner = new Scanner(System.in);
         char bez = scanner.nextLine().charAt(0);
         boolean found = false;
-        for (Arbeitspaket pointer : Netzplan.liste) {
+        for (Arbeitspaket pointer : Netzplan.getListe()) {
             if (pointer.getI() == bez) {
                 found = true;
 
@@ -352,12 +352,12 @@ class UserInterface {
     }
 
     private void entferneArbeitspaket() {
-        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+        if (Netzplan.getListe() == null || Netzplan.getListe().isEmpty()) {
             System.err.println("Keine Eintraege gefunden!");
             System.console().readLine();
         } else {
             System.out.println("Verfuegbare Arbeitspakete:");
-            for (Arbeitspaket pointer : Netzplan.liste) {
+            for (Arbeitspaket pointer : Netzplan.getListe()) {
                 System.out.println(pointer.getI());
             }
             System.out.print("Zu loeschendes Arbeitspaket: ");
@@ -365,7 +365,7 @@ class UserInterface {
             boolean found = false;
             Arbeitspaket tmp = null;
             char selection = scanner.nextLine().charAt(0);
-            for (Arbeitspaket pointer : Netzplan.liste) {
+            for (Arbeitspaket pointer : Netzplan.getListe()) {
                 if (pointer.getI() == selection) {
                     tmp = pointer;
                     removeDependencies(pointer);
@@ -373,7 +373,7 @@ class UserInterface {
                 }
             }
             if (tmp != null) {
-                Netzplan.liste.remove(tmp);
+                Netzplan.getListe().remove(tmp);
                 clearConsole();
                 System.out.println("Arbeitspaket entfernt.");
                 System.console().readLine();
@@ -385,7 +385,7 @@ class UserInterface {
     }
 
     private void removeDependencies(Arbeitspaket paket) {
-        for (Arbeitspaket pointer : Netzplan.liste) {
+        for (Arbeitspaket pointer : Netzplan.getListe()) {
             if (pointer.getVorgaenger() != null) {
                 for (Arbeitspaket vor : pointer.getVorgaenger()) {
                     if (vor == paket) {
@@ -406,7 +406,7 @@ class UserInterface {
     }
 
     private void zeigeNetzplan() {
-        if (Netzplan.liste == null || Netzplan.liste.isEmpty()) {
+        if (Netzplan.getListe() == null || Netzplan.getListe().isEmpty()) {
             System.err.println("Keine Eintraege gefunden!");
             System.console().readLine();
         } else {
@@ -425,7 +425,7 @@ class UserInterface {
         int selection = scanner.nextInt();
         switch (selection) {
             case 1:
-                Netzplan.liste.clear();
+                Netzplan.getListe().clear();
                 clearConsole();
                 System.out.println("Netzplan entfernt!");
                 System.console().readLine();
