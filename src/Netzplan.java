@@ -103,7 +103,6 @@ public class Netzplan {
         // *** TEST-INITIALISIERUNG ***
 
 
-        UserInterface ui = new UserInterface();
-        ui.start();
+        new UserInterface().start();
     }
 }
