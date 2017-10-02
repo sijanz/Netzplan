@@ -108,14 +108,13 @@ class UserInterface {
     private void initializeI(Arbeitspaket paket) {
         clearConsole();
         System.out.print("Bezeichner: ");
-
         Scanner scanner = new Scanner(System.in);
         char i = '0';
         try {
             i = scanner.nextLine().charAt(0);
         } catch (Exception e) {
             clearConsole();
-            System.out.println("Bitte einen gültigen Bezeichner eingeben!");
+            System.out.println("Bitte einen gueltigen Bezeichner eingeben!");
             System.console().readLine();
             initializeI(paket);
         }
@@ -141,10 +140,16 @@ class UserInterface {
     private void initializeD(Arbeitspaket paket) {
         clearConsole();
         System.out.print("Dauer: ");
-
-        //TODO: exceptions
         Scanner scanner = new Scanner(System.in);
-        int newD = scanner.nextInt();
+        int newD = 0;
+        try {
+            newD = scanner.nextInt();
+        } catch (Exception e) {
+            clearConsole();
+            System.out.println("Bitte eine gueltige Dauer eingeben!");
+            System.console().readLine();
+            initializeD(paket);
+        }
         paket.setD(newD);
         clearConsole();
         System.out.println("Dauer gesetzt.");
