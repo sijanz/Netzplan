@@ -92,23 +92,11 @@ class UserInterface {
         }
     }
 
+    // TODO
     private void addArbeitspaket() {
-        clearConsole();
-        System.out.print("Bezeichner des Arbeitspakets: ");
-        Scanner scanner = new Scanner(System.in);
-        char initialI = scanner.nextLine().charAt(0);
-        if (hasDuplicateI(initialI)) {
-            System.out.println("Bezeichner bereits vorhanden, bitte neuen Bezeichner waehlen!");
-            System.console().readLine();
-            addArbeitspaket();
-        }
-        clearConsole();
-
-        System.out.print("Dauer des Arbeitspakets: ");
-        int initialD = scanner.nextInt();
-        Arbeitspaket tmp = new Arbeitspaket(initialI, initialD);
-
-        //TODO: Beschriftung, null as input
+        Arbeitspaket tmp = new Arbeitspaket('0', 0);
+        initializeI(tmp);
+        initializeD(tmp);
         addVorgaenger(tmp);
         addNachfolger(tmp);
         Netzplan.getListe().add(tmp);
@@ -117,13 +105,51 @@ class UserInterface {
         System.console().readLine();
     }
 
-    private boolean hasDuplicateI(char i) {
-        for (Arbeitspaket paket : Netzplan.getListe()) {
-            if (paket.getI() == i) {
-                return true;
+    private void initializeI(Arbeitspaket paket) {
+        clearConsole();
+        System.out.print("Bezeichner: ");
+
+        Scanner scanner = new Scanner(System.in);
+        char i = '0';
+        try {
+            i = scanner.nextLine().charAt(0);
+        } catch (Exception e) {
+            clearConsole();
+            System.out.println("Bitte einen gültigen Bezeichner eingeben!");
+            System.console().readLine();
+            initializeI(paket);
+        }
+        boolean vorhanden = false;
+        for (Arbeitspaket pointer : Netzplan.getListe()) {
+            if (pointer.getI() == i) {
+                vorhanden = true;
+                clearConsole();
+                System.err.println("Bezeichner bereits vorhanden!");
+                System.console().readLine();
+                initializeI(paket);
             }
         }
-        return false;
+        if (!vorhanden) {
+            paket.setI(i);
+            clearConsole();
+            System.out.println("Bezeichner gesetzt.");
+            System.console().readLine();
+            clearConsole();
+        }
+    }
+
+    private void initializeD(Arbeitspaket paket) {
+        clearConsole();
+        System.out.print("Dauer: ");
+
+        //TODO: exceptions
+        Scanner scanner = new Scanner(System.in);
+        int newD = scanner.nextInt();
+        paket.setD(newD);
+        clearConsole();
+        System.out.println("Dauer gesetzt.");
+        System.console().readLine();
+        clearConsole();
     }
 
     private void bearbeiteArbeitspaket() {
