@@ -96,11 +96,9 @@ class UserInterface {
         Arbeitspaket tmp = new Arbeitspaket('0', 0);
         initializeI(tmp);
         initializeD(tmp);
-        addVorgaenger(tmp);
-        addNachfolger(tmp);
         Netzplan.getListe().add(tmp);
         clearConsole();
-        System.out.println("Neues Arbeitspaket hinzugefuegt.");
+        System.out.println("Neues Arbeitspaket hinzugefuegt. Bitte die Vorgaenger und Nachfolger manuell einfuegen.");
         System.console().readLine();
     }
 
