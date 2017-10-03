@@ -92,7 +92,6 @@ class UserInterface {
         }
     }
 
-    // TODO
     private void addArbeitspaket() {
         Arbeitspaket tmp = new Arbeitspaket('0', 0);
         initializeI(tmp);
@@ -247,7 +246,15 @@ class UserInterface {
         System.out.print("Neuer Bezeichner: ");
 
         Scanner scanner = new Scanner(System.in);
-        char newI = scanner.nextLine().charAt(0);
+        char newI = '0';
+        try {
+            newI = scanner.nextLine().charAt(0);
+        } catch (Exception e) {
+            clearConsole();
+            System.out.println("Bitte einen gueltigen Bezeichner eingeben!");
+            System.console().readLine();
+            changeI(paket);
+        }
         boolean vorhanden = false;
         for (Arbeitspaket pointer : Netzplan.getListe()) {
             if (pointer.getI() == newI) {
@@ -268,12 +275,11 @@ class UserInterface {
         }
     }
 
+    //TODO: exceptions
     private void changeD(Arbeitspaket paket) {
         clearConsole();
         System.out.println("Bisherige Dauer: " + paket.getD());
         System.out.print("Neue Dauer: ");
-
-        //TODO: exceptions
         Scanner scanner = new Scanner(System.in);
         int newD = scanner.nextInt();
         paket.setD(newD);
@@ -283,6 +289,7 @@ class UserInterface {
         clearConsole();
     }
 
+    //TODO: exceptions
     private void addVorgaenger(Arbeitspaket paket) {
         clearConsole();
         System.out.print("Bezeichner des Vorgaengers: ");
@@ -311,6 +318,7 @@ class UserInterface {
         }
     }
 
+    //TODO: exceptions
     private void removeVorgaenger(Arbeitspaket paket) {
         clearConsole();
         if (paket.getVorgaenger() != null || !paket.getVorgaenger().isEmpty()) {
@@ -340,6 +348,7 @@ class UserInterface {
         }
     }
 
+    //TODO: exceptions
     private void addNachfolger(Arbeitspaket paket) {
         clearConsole();
         System.out.print("Bezeichner des Nachfolger: ");
@@ -368,6 +377,7 @@ class UserInterface {
         }
     }
 
+    //TODO: exceptions
     private void removeNachfolger(Arbeitspaket paket) {
         clearConsole();
         if (paket.getNachfolger() != null || !paket.getNachfolger().isEmpty()) {
@@ -397,6 +407,7 @@ class UserInterface {
         }
     }
 
+    //TODO: exceptions
     private void entferneArbeitspaket() {
         if (Netzplan.getListe() == null || Netzplan.getListe().isEmpty()) {
             System.err.println("Keine Eintraege gefunden!");
