@@ -169,16 +169,26 @@ class UserInterface {
             System.out.print("Zu bearbeitendes Arbeitspaket: ");
             Scanner scanner = new Scanner(System.in);
             boolean found = false;
-            char selection = scanner.nextLine().charAt(0);
-            for (Arbeitspaket pointer : Netzplan.getListe()) {
-                if (pointer.getI() == selection) {
-                    clearConsole();
-                    showEditMenu(pointer);
-                    found = true;
-                }
+            char selection = '0';
+            boolean set = true;
+            try {
+                selection = scanner.nextLine().charAt(0);
+            } catch (Exception e) {
+                set = false;
+                clearConsole();
+                bearbeiteArbeitspaket();
             }
-            if (!found) {
-                notFound();
+            if (set) {
+                for (Arbeitspaket pointer : Netzplan.getListe()) {
+                    if (pointer.getI() == selection) {
+                        clearConsole();
+                        showEditMenu(pointer);
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    notFound();
+                }
             }
         }
     }
@@ -210,8 +220,14 @@ class UserInterface {
         System.out.println("6:  Nachfolger entfernen");
         System.out.println("0:  Hauptmenu");
 
+        //FIXME
         Scanner scanner = new Scanner(System.in);
-        int selection = scanner.nextInt();
+        int selection = -1;
+        try {
+            selection = scanner.nextInt();
+        } catch (Exception e) {
+            showEditMenu(paket);
+        }
         switch (selection) {
             case 1:
                 changeI(paket);
@@ -247,46 +263,61 @@ class UserInterface {
 
         Scanner scanner = new Scanner(System.in);
         char newI = '0';
+        boolean set = true;
         try {
             newI = scanner.nextLine().charAt(0);
         } catch (Exception e) {
+            set = false;
             clearConsole();
             System.out.println("Bitte einen gueltigen Bezeichner eingeben!");
             System.console().readLine();
-            changeI(paket);
+            showEditMenu(paket);
         }
-        boolean vorhanden = false;
-        for (Arbeitspaket pointer : Netzplan.getListe()) {
-            if (pointer.getI() == newI) {
-                vorhanden = true;
+        if (set) {
+            boolean vorhanden = false;
+            for (Arbeitspaket pointer : Netzplan.getListe()) {
+                if (pointer.getI() == newI) {
+                    vorhanden = true;
+                    clearConsole();
+                    System.err.println("Bezeichner bereits vorhanden!");
+                    System.console().readLine();
+                    clearConsole();
+                    break;
+                }
+            }
+            if (!vorhanden) {
+                paket.setI(newI);
                 clearConsole();
-                System.err.println("Bezeichner bereits vorhanden!");
+                System.out.println("Neuer Bezeichner gesetzt.");
                 System.console().readLine();
                 clearConsole();
-                break;
             }
-        }
-        if (!vorhanden) {
-            paket.setI(newI);
-            clearConsole();
-            System.out.println("Neuer Bezeichner gesetzt.");
-            System.console().readLine();
-            clearConsole();
         }
     }
 
-    //TODO: exceptions
     private void changeD(Arbeitspaket paket) {
         clearConsole();
         System.out.println("Bisherige Dauer: " + paket.getD());
         System.out.print("Neue Dauer: ");
         Scanner scanner = new Scanner(System.in);
-        int newD = scanner.nextInt();
-        paket.setD(newD);
-        clearConsole();
-        System.out.println("Neue Dauer gesetzt.");
-        System.console().readLine();
-        clearConsole();
+        int newD = 0;
+        boolean set = true;
+        try {
+            newD = scanner.nextInt();
+        } catch (Exception e) {
+            set = false;
+            clearConsole();
+            System.out.println("Bitte eine gueltige Dauer eingeben!");
+            System.console().readLine();
+            showEditMenu(paket);
+        }
+        if (set) {
+            paket.setD(newD);
+            clearConsole();
+            System.out.println("Neue Dauer gesetzt.");
+            System.console().readLine();
+            clearConsole();
+        }
     }
 
     //TODO: exceptions

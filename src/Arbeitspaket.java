@@ -52,10 +52,6 @@ class Arbeitspaket {
         return this.d;
     }
 
-    boolean isMarked() {
-        return this.isMarked;
-    }
-
     void setI(char i) {
         this.i = i;
     }
@@ -76,12 +72,17 @@ class Arbeitspaket {
         this.nachfolger = nachfolger;
     }
 
+    // TODO: work on algorithm
     void setMark() {
         this.isMarked = true;
     }
 
     void removeMark() {
         this.isMarked = false;
+    }
+
+    boolean isMarked() {
+        return this.isMarked;
     }
 
     void calculateFaz() {
